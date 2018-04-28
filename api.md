@@ -19,19 +19,25 @@ For the simplest way to download the data, you may use the download page availab
 
 
 JSON data available from PurpleAir
-NOTE: Please limit multiple threaded applications to a few threads at any time to reduce load on purpleair.com or thingspeak.com servers. If you do not limit the amount of threads, you may be blocked on the firewall.
+
+**NOTE: Please limit multiple threaded applications to a few threads at any time to reduce load on purpleair.com or thingspeak.com servers. If you do not limit the amount of threads, you may be blocked on the firewall.**
 
 
 PurpleAir provides access to our real time data in a JSON format. This format allows developers to access current data for all sensors or a subset of sensors.
 
 
 There are two ways to access the JSON data:
+
 All sensors: https://www.purpleair.com/json
+
 One entry: https://www.purpleair.com/json?show=<ID> where ID is the “ID” of the sensor you want (in the case of dual laser where ParentID is “null”).
 
 
 PurpleAir JSON fields description and example values:
+
 The following is a list of the fields and a description of their values contained in the JSON data:
+
+```
 "ID":1234, // PurpleAir sensor ID
 "ParentID":null, // The PurpleAir sensor ID of the "parent" entry in the case of Channel B
 "THINGSPEAK_PRIMARY_ID":"1234", // The Thingspeak channel ID for primary data of this sensor
@@ -58,8 +64,9 @@ The following is a list of the fields and a description of their values containe
 "LastUpdateCheck":1490308331, // Last update checked at time stamp in UTC
 "Uptime":"5210", // Sensor uptime in seconds
 "RSSI":"-68", // Sensor's WiFi signal strength in dBm
+```
 
-
+```
 "Stats": // Statistics for PM2.5
 "{
 \"v\":1.07, // Real time or current PM2.5 Value
@@ -74,13 +81,13 @@ The following is a list of the fields and a description of their values containe
 \"timeSinceModified\":69290 // Time between last two readings in milliseconds
 }"
 }
-
+```
 
 Accessing data directly from Thingspeak:
 Another way to get the data is to use ThingSpeak.com and to do this, you will need the API Key and channelID. These two pieces of data are available from PurpleAir’s JSON.
 
 
-NOTE: Please limit multiple threaded applications to a few threads at any time to reduce load on purpleair.com or thingspeak.com servers. If you do not limit the amount of threads, you may be blocked on the firewall.
+**NOTE: Please limit multiple threaded applications to a few threads at any time to reduce load on purpleair.com or thingspeak.com servers. If you do not limit the amount of threads, you may be blocked on the firewall.**
 
 
 More info on using ThingSpeak’s API is here: https://www.mathworks.com/help/thingspeak/rest-api.html
@@ -90,7 +97,7 @@ Field descriptions:
 Channel A and B, primary and secondary ThingSpeak channels together provide 32 fields for each sensor.
 There are six ug/m3 values and six particle counts for each channel (laser) as well as temperature, humidity, WiFi signal (RSSI), sensor uptime, free memory and analog input.
 
-
+```
 Channel A
 PrimaryData
 field1: PM1.0 (CF=ATM) ug/m3
@@ -135,7 +142,7 @@ field5: 5.0um particles/deciliter
 field6: 10.0um particles/deciliter
 field7: PM1.0 (CF=1) ug/m3 This is the field to use for PM1.0
 field8: PM10 (CF=1) ug/m3 This is the field to use for PM10
-
+```
 
 * All time stamps are UTC.
 PurpleAir sensors attempt to send both primary and secondary data every 40 seconds or so.
@@ -146,7 +153,7 @@ PA-II-SD data format
 
 The SD Card version of the PA-II (PA-II-SD) has a built in real time clock and OPENLOG serial logger. The SD card contains data in CSV format with the following headers:
 
-
+```
 UTCDateTime,mac_address,firmware_ver,hardware,current_temp_f,current_humidity,current_dewpoint_f,pressure,adc,mem,rssi,uptime,pm1_0_atm,pm2_5_atm,pm10_0_atm,pm1_0_cf_1,pm2_5_cf_1,pm10_0_cf_1,p_0_3_um,p_0_5_um,p_1_0_um,p_2_5_um,p_5_0_um,p_10_0_um,pm1_0_atm_b,pm2_5_atm_b,pm10_0_atm_b,pm1_0_cf_1_b,pm2_5_cf_1_b,pm10_0_cf_1_b,p_0_3_um_b,p_0_5_um_b,p_1_0_um_b,p_2_5_um_b,p_5_0_um_b,p_10_0_um_b
 Header Descriptions
 UTCDateTime: The Date and time derived from the Real Time Clock and synced with NTP where possible (in UTC).
@@ -189,7 +196,7 @@ P_1_0_um_b: Channel B 1.0 micrometer particle counts per deciliter of air
 P_2_5_um_b: Channel B 2.5 micrometer particle counts per deciliter of air
 P_5_0_um_b: Channel B 5.0 micrometer particle counts per deciliter of air
 P_10_0_um_b: Channel B 10.0 micrometer particle counts per deciliter of air
-
+```
 
 PA-II NOTES:
 Each sensor contains two identical laser counters, hence channel A and B. If these two channels do not agree to some extent then there is something wrong with one or both channels.
